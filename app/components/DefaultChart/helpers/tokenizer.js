@@ -32,9 +32,6 @@ export default class Tokenizer {
    * @returns {boolean}
    */
   verifyIntegrityOfExpression = expresion => {
-    console.log(expresion);
-    console.log((expresion.match(/\(/g) || []).length);
-    console.log((expresion.match(/\)/g) || []).length);
     return (expresion.match(/\(/g) || []).length === (expresion.match(/\)/g) || []).length;
   };
   /**
@@ -45,11 +42,9 @@ export default class Tokenizer {
   reduceFunction = fn => {
     let fnTokens = [];
     let valueFound = /\(.*\)$/.exec(fn)[0];
-    valueFound = valueFound.substring(1, valueFound.length-1);
-    console.log(fn);
-    console.log(/\(.*\)$/.exec(fn));
+    valueFound = valueFound.substring(1, valueFound.length - 1);
     let tokenizedValue = this.tokenize(valueFound);
-    if(tokenizedValue.error){
+    if (tokenizedValue.error) {
       return { integrity: false, message: tokenizedValue.message, structure: [] };
     }
     tokenizedValue.structure.unshift({ type: 'leftParanthesis', value: '(' });
@@ -223,8 +218,7 @@ export default class Tokenizer {
       }
       integrityChecked = this.verifyTokenIntegrity(token);
       if (integrityChecked) {
-        if(functionFound){
-
+        if (functionFound) {
           // if(!(functionBody.match(/\(/g) || []).length || !(functionBody.match(/\(/g) || []).length){ // the function still doesn't have a body
           //   functionBody += token.value;
           //   functionOpenedParanthesis += (token.value.match(/\(/g) || []).length;
@@ -232,14 +226,14 @@ export default class Tokenizer {
           //   return;
           // }
 
-            functionBody += token.value;
-            functionOpenedParanthesis += (token.value.match(/\(/g) || []).length;
-            functionOpenedParanthesis -= (token.value.match(/\)/g) || []).length;
+          functionBody += token.value;
+          functionOpenedParanthesis += (token.value.match(/\(/g) || []).length;
+          functionOpenedParanthesis -= (token.value.match(/\)/g) || []).length;
 
-          if(!functionOpenedParanthesis){
+          if (!functionOpenedParanthesis) {
             let functionTokens = this.reduceFunction(functionBody);
             integrityChecked.state = functionTokens.integrity;
-            if(!integrityChecked.state){
+            if (!integrityChecked.state) {
               integrityChecked.message = functionTokens.message;
             }
             functionTokens.structure.forEach(fnToken => {
@@ -399,7 +393,7 @@ export default class Tokenizer {
       result.push({ type: this.getCharacterType(ch), value: ch });
     });
     let structure = this.createTheOperationStructure(result);
-    console.log(structure);
+    // console.log(structure);
     // console.log(structure.structure);
     if (!structure.integrity) {
       return { error: true, message: structure.message, structure: [] };
