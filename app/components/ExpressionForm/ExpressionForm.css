@@ -1,0 +1,20 @@
+.rowWithMargin {
+  margin-top: 10px;
+}
+.rangeInput {
+  width: calc(50% - 65px) !important;
+  text-align: center !important;
+  border-left: 0 !important;
+}
+.hiddenInput {
+  border-left: 0 !important;
+  pointer-events: none !important;
+  background-color: #fff !important;
+}
+.equationString {
+  font-style: italic;
+  line-height: 40px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
